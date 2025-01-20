@@ -4,14 +4,14 @@ image: microsoftvisualstudio_visualstudioplustools_vs-2022-ent-general-win11-m36
 description: "This definition is for the eShop backend engineering environment"
 
 tasks:
-  - name: __INTRINSIC_Winget__
+  - name: winget
     parameters:
       downloadUrl: 'https://raw.githubusercontent.com/contoso-co/common-eng-sys/main/dsc-configurations/common-config.dsc.yaml'
   ### Run the DSC configuration for the backend engineering environment
-  - name: __INTRINSIC_Winget__
+  - name: winget
     parameters:
       configurationFile: 'https://raw.githubusercontent.com/contoso-co/eShop/refs/heads/main/.configurations/backend-eng.dsc.yaml'
 userTasks:
-  - name: __INTRINSIC_Winget__
+  - name: winget
     parameters:
       configurationFile: 'z:\workspaces\eshop\.configurations\backend-eng.postcreate.dsc.yaml'
