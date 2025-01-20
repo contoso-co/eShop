@@ -3,6 +3,6 @@ $schema: 1.0
 name: ContosoBaseImageDefinition
 image: microsoftwindowsdesktop_windows-ent-cpc_win11-24H2-ent-cpc
 tasks:
-  - name: ~/winget
+  - name: __INTRINSIC_Winget__
     parameters:
       downloadUrl: 'https://raw.githubusercontent.com/contoso-co/eShop/refs/heads/main/.configurations/common-config.dsc.yaml'
