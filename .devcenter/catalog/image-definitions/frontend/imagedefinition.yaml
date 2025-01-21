@@ -6,7 +6,7 @@ description: "This definition is for the eShop frontend engineering environment"
 tasks:
   - name: winget
     parameters:
-      downloadUrl: 'https://raw.githubusercontent.com/contoso-co/common-eng-sys/main/dsc-configurations/common-config.dsc.yaml'
+      downloadUrl: 'https://raw.githubusercontent.com/contoso-co/common-eng-sys/msft-git/dsc-configurations/common-config.dsc.yaml'
 
   - name: winget
     description: Install AZD
