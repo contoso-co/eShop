@@ -8,11 +8,6 @@ tasks:
       package: Docker.DockerDesktop
 
   - name: winget
-    description: Install Visual Studio 2022 Enterprise
-    parameters:
-      package: Microsoft.VisualStudio.2022.Enterprise
-
-  - name: winget
     description: Install .NET SDK 9.0
     parameters:
       package: Microsoft.DotNet.SDK.9
