@@ -1,19 +1,41 @@
 $schema: "1.0"
-name: "backend-dev"
+name: "eshoponweb-dev-environment"
 image: microsoftvisualstudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2
-description: "This definition is for the eShop backend engineering environment"
-
 tasks:
-  ### 
   - name: winget
+    description: Install Git for Windows
     parameters:
-      downloadUrl: 'https://raw.githubusercontent.com/contoso-co/common-eng-sys/msft-git/dsc-configurations/common-config.dsc.yaml'
-  ### Run the DSC configuration for the backend engineering environment
+      package: Git.Git
   - name: winget
+    description: Install Docker Desktop
     parameters:
-      downloadUrl: 'https://raw.githubusercontent.com/contoso-co/eShop/refs/heads/main/.configurations/backend-eng.dsc.yaml'
-userTasks:
+      package: Docker.DockerDesktop
   - name: winget
+    description: Install SQL Server Management Studio
     parameters:
-      configurationFile: 'z:\workspaces\eshop\.configurations\backend-eng.postcreate.dsc.yaml'
-test
+      package: Microsoft.SQLServerManagementStudio
+  - name: winget
+    description: Install Azure Data Studio
+    parameters:
+      package: Microsoft.AzureDataStudio
+  - name: winget
+    description: Install Postman
+    parameters:
+      package: Postman.Postman
+  - name: winget
+    description: Install Node.js LTS
+    parameters:
+      package: OpenJS.NodeJS.LTS
+  - name: winget
+    description: Install Azure CLI
+    parameters:
+      package: Microsoft.AzureCLI
+  - name: git-clone
+    description: Clone the eShopOnWeb repository
+    parameters:
+      repositoryUrl: https://github.com/sagarlankala/eshoponweb.git
+      directory: 'C:\Source'
+  - name: powershell
+    description: Setup eShopOnWeb development environment
+    parameters:
+      command: "winget install --id Microsoft.DotNet.SDK.7 -e; dotnet tool install --global dotnet-ef; cd C:\\Source\\eshoponweb; dotnet restore; dotnet ef database update --context CatalogContext --project src\\Infrastructure\\Infrastructure.csproj --startup-project src\\Web\\Web.csproj; dotnet ef database update --context AppIdentityDbContext --project src\\Infrastructure\\Infrastructure.csproj --startup-project src\\Web\\Web.csproj"
