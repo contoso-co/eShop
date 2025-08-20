@@ -1,18 +1,182 @@
 $schema: "1.0"
-name: "backend-dev"
+name: "dotnet-fullstack-ai-dev-environment"
 image: microsoftvisualstudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2
-description: "This definition is for the eShop backend engineering environment"
-
 tasks:
-  ### 
+  # Core Development Tools
   - name: winget
+    description: Install Git for Windows
     parameters:
-      downloadUrl: 'https://raw.githubusercontent.com/contoso-co/common-eng-sys/msft-git/dsc-configurations/common-config.dsc.yaml'
-  ### Run the DSC configuration for the backend engineering environment
+      package: Git.Git
   - name: winget
+    description: Install Visual Studio Code
     parameters:
-      downloadUrl: 'https://raw.githubusercontent.com/contoso-co/eShop/refs/heads/main/.configurations/backend-eng.dsc.yaml'
-userTasks:
+      package: Microsoft.VisualStudioCode
   - name: winget
+    description: Install JetBrains Rider
     parameters:
-      configurationFile: 'z:\workspaces\eshop\.configurations\backend-eng.postcreate.dsc.yaml'
+      package: JetBrains.Rider
+  
+  # .NET Tech Stack
+  - name: winget
+    description: Install .NET 6 SDK
+    parameters:
+      package: Microsoft.DotNet.SDK.6
+  - name: winget
+    description: Install .NET 7 SDK
+    parameters:
+      package: Microsoft.DotNet.SDK.7
+  - name: winget
+    description: Install .NET 8 SDK
+    parameters:
+      package: Microsoft.DotNet.SDK.8
+  
+  # Frontend Development
+  - name: winget
+    description: Install Node.js LTS
+    parameters:
+      package: OpenJS.NodeJS.LTS
+  - name: winget
+    description: Install Yarn Package Manager
+    parameters:
+      package: Yarn.Yarn
+  
+  # Database Tools
+  - name: winget
+    description: Install SQL Server Management Studio
+    parameters:
+      package: Microsoft.SQLServerManagementStudio
+  - name: winget
+    description: Install Azure Data Studio
+    parameters:
+      package: Microsoft.AzureDataStudio
+  - name: winget
+    description: Install PostgreSQL
+    parameters:
+      package: PostgreSQL.PostgreSQL
+  - name: winget
+    description: Install MySQL
+    parameters:
+      package: Oracle.MySQL
+  
+  # Containerization & DevOps
+  - name: winget
+    description: Install Docker Desktop
+    parameters:
+      package: Docker.DockerDesktop
+  - name: winget
+    description: Install Azure CLI
+    parameters:
+      package: Microsoft.AzureCLI
+  - name: winget
+    description: Install GitHub CLI
+    parameters:
+      package: GitHub.cli
+  
+  # API Development & Testing
+  - name: winget
+    description: Install Postman
+    parameters:
+      package: Postman.Postman
+  - name: winget
+    description: Install Insomnia REST Client
+    parameters:
+      package: Insomnia.Insomnia
+  
+  # AI/ML Development Tools
+  - name: winget
+    description: Install Python 3.11
+    parameters:
+      package: Python.Python.3.11
+  - name: winget
+    description: Install Anaconda Python Distribution
+    parameters:
+      package: Anaconda.Anaconda3
+  
+  # Additional Development Tools
+  - name: winget
+    description: Install Windows Terminal
+    parameters:
+      package: Microsoft.WindowsTerminal
+  - name: winget
+    description: Install PowerShell 7
+    parameters:
+      package: Microsoft.PowerShell
+  - name: winget
+    description: Install NuGet Package Explorer
+    parameters:
+      package: NuGetPackageExplorer.NuGetPackageExplorer
+  
+  # Repository Setup
+  - name: git-clone
+    description: Clone the eShopOnWeb repository
+    parameters:
+      repositoryUrl: https://github.com/sagarlankala/eshoponweb.git
+      directory: 'C:\Source'
+  
+  # Development Environment Setup
+  - name: powershell
+    description: Setup comprehensive .NET full-stack development environment
+    parameters:
+      command: |
+        # Set execution policy for scripts
+        Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+        
+        # Install .NET global tools
+        dotnet tool install --global dotnet-ef
+        dotnet tool install --global dotnet-aspnet-codegenerator
+        dotnet tool install --global Microsoft.Web.LibraryManager.Cli
+        dotnet tool install --global dotnet-trace
+        dotnet tool install --global dotnet-dump
+        dotnet tool install --global Microsoft.dotnet-httprepl
+        
+        # Install Visual Studio Code extensions
+        code --install-extension ms-dotnettools.csharp
+        code --install-extension ms-dotnettools.blazorwasm-companion
+        code --install-extension ms-vscode.vscode-typescript-next
+        code --install-extension ms-vscode.vscode-json
+        code --install-extension ms-azuretools.vscode-docker
+        code --install-extension GitHub.copilot
+        code --install-extension ms-python.python
+        code --install-extension ms-toolsai.jupyter
+        code --install-extension ms-vscode.azure-account
+        code --install-extension ms-azuretools.vscode-azurefunctions
+        
+        # Install Node.js global packages for frontend development
+        npm install -g @angular/cli
+        npm install -g create-react-app
+        npm install -g typescript
+        npm install -g webpack
+        npm install -g webpack-cli
+        npm install -g @vue/cli
+        npm install -g eslint
+        npm install -g prettier
+        
+        # Install Python packages for AI/ML development
+        pip install --upgrade pip
+        pip install jupyter
+        pip install numpy
+        pip install pandas
+        pip install scikit-learn
+        pip install tensorflow
+        pip install torch
+        pip install transformers
+        pip install openai
+        pip install azure-ai-ml
+        pip install azure-cognitiveservices-vision-computervision
+        pip install azure-cognitiveservices-language-textanalytics
+        
+        # Setup eShopOnWeb project
+        cd C:\Source\eshoponweb
+        
+        # Restore NuGet packages
+        dotnet restore
+        
+        # Setup databases
+        dotnet ef database update --context CatalogContext --project src\Infrastructure\Infrastructure.csproj --startup-project src\Web\Web.csproj
+        dotnet ef database update --context AppIdentityDbContext --project src\Infrastructure\Infrastructure.csproj --startup-project src\Web\Web.csproj
+        
+        # Create development folders
+        New-Item -ItemType Directory -Force -Path "C:\Development"
+        New-Item -ItemType Directory -Force -Path "C:\Development\Projects"
+        New-Item -ItemType Directory -Force -Path "C:\Development\AI-Models"
+        New-Item -ItemType Directory -Force -Path "C:\Development\Scripts"
