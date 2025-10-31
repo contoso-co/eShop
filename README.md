@@ -27,7 +27,7 @@ A reference .NET application implementing an e-commerce website using a services
 
 
 #### Mac, Linux, & Windows without Visual Studio
-- Install the latest [.NET 9 RC 2 SDK](https://dot.net/download?cid=eshop)
+- Install the latest [.NET 9 SDK](https://dot.net/download?cid=eshop)
 
 Or
 
